@@ -73,6 +73,21 @@ public abstract class LoginClass {
     private void setAdmin(boolean admin) {
         this.admin = admin;
     }
+
+    // get size of arraylist to generate accountId for users
+    public int getAccountListLength() {
+        return accounts.size();
+    }
+
+    // add user to list of accounts
+    public void addAccount(LoginClass user) {
+        accounts.add(user.accountId);
+    }
+
+    // remove user from list of accounts
+    public void removeAccount(int accountID) {
+        accounts.remove(accounts.get(accountID));
+    }
 }
 
 

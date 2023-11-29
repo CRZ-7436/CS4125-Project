@@ -5,7 +5,7 @@ import com.ExtVision.RentalSystem.Observer.Observer;
 
 public class ClerkClass extends Clerk implements Observer {
     // declare attributes for the Clerk object
-    private static ArrayList<ClerkClass> accounts = new ArrayList<ClerkClass>(); // the static ArrayList is used for indexing the Clerk accounts
+    private int accountId;
     private String username;
     private String password;
     private boolean active;
@@ -13,20 +13,22 @@ public class ClerkClass extends Clerk implements Observer {
 
     // empty contructor that creates an account with default values
     public ClerkClass () {
+        this.accountId = getAccountListLength();
         this.username = "NaN";
         this.password = "NaN";
         this.active = false;
         this.admin = false;
-        accounts.add(this);
+        addAccount(this);
     }
 
     // populated constuctor to add fields
     public ClerkClass (String username, String password, boolean active, boolean admin) {
+        this.accountId = getAccountListLength();
         this.username = username;
         this.password = password;
         this.active = active;
         this.admin = admin;
-        accounts.add(this);
+        addAccount(this);
     }
 
     // class to change a clerk's password (by an admin)
@@ -38,7 +40,8 @@ public class ClerkClass extends Clerk implements Observer {
 
     // get clerk based on the index of the accounts ArrayList
     public ClerkClass getClerk(int accountId) {
-        return accounts.get(accountId);
+        //todo fix login class
+        return null;
     }
 
     // check if the user specified is active
@@ -53,8 +56,8 @@ public class ClerkClass extends Clerk implements Observer {
 
     // deletes clerk if the clerk invoking the method is an admin
     public void deleteClerk(int accountId) {
-        if (this.active == true) {
-            accounts.remove(accountId);
+        if (this.admin == true) {
+            removeAccount(accountId);
         }
     }
 
