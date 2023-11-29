@@ -10,7 +10,7 @@ import org.hibernate.query.sqm.StrictJpaComplianceViolation;
 
 
 // This is the main class for Customer in the rental system
-public class CustomerClass extends Customer {
+public class CustomerClass extends Customer implements CustomerClassInterface {
     // Attributes of the customer
     private int customerID;
     private String name;
@@ -47,48 +47,56 @@ public class CustomerClass extends Customer {
     
     // Returns the customer ID
     
+    @Override
     public int getCustomerID() {
         return customerID;
     }
     
     // Returns the customer's name
     
+    @Override
     public String getName() {
         return name;
     }
     
     // Returns the customer's address
     
+    @Override
     public String getAddress() {
         return address;
     }
     
     // Returns the customer's phone number
   
+    @Override
     public double getPhone() {
         return phoneNum;
     }
     
     // Returns the customer's email
    
+    @Override
     public String getEmail() {
         return email;
     }
     
     // Returns the customer's account status
    
+    @Override
     public String getAccountStatus() {
         return accountStatus;
     }
     
     // Returns the list of current rentals for the customer
    
+    @Override
     public List<Integer> getCurrentRentals() {
         return currentRentals;
     }
     
     // Returns the customer's balance
     
+    @Override
     public float getBalance() {
         return balance;
     }
@@ -98,24 +106,30 @@ public class CustomerClass extends Customer {
     // Foundation of the Mutator methods, this is just some basic values is not completed yet 
 
     // Updates the account status
+    @Override
     public void setAccountStatus(String accountStatus) {
         this.accountStatus = accountStatus;
     }
     
     // Updates the balance
+    @Override
     public void setBalance(float balance) {
         this.balance = balance;
     }
 
+    @Override
     public void setName(String name){
         this.name = name;
     }
+    @Override
     public void setAddress(String address){
         this.address = address;
     }
+    @Override
     public void setphoneNum(double phoneNum){
         this.phoneNum = phoneNum;
     }
+    @Override
     public void setEmail(String email){
         this.email = email;
     }
@@ -125,6 +139,7 @@ public class CustomerClass extends Customer {
     // More validation checks need to be added currently this is the only one just so we can easily create customer classes
     // They will be added as needed
     // Validates the email format using a regular format
+    @Override
     public boolean isValidEmail(String email) {
         // Simple regex to check email format, can be improved for more stringent checks not prority right now
         return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
@@ -134,6 +149,7 @@ public class CustomerClass extends Customer {
     
     // Updates the customer's profile information
     // This method might need to be inside the clerk class but I added here so Customer objects aren't set 
+    @Override
     public void updateProfile(String name, String address, String phone, String email) {
         if (!isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid email format.");
