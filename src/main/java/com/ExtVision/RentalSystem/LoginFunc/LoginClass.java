@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
 
 import static com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.getLoginStateMessage;
 
-
-public abstract class LoginClass {
+@Service
+public class LoginClass {
     private static List<Integer> accounts;
     private int accountId;
     private Map<String, String> loginCredentials;
     private boolean admin;
     private boolean active;
-
+    
     public LoginClass() {
         loginCredentials = new HashMap<>();
     }

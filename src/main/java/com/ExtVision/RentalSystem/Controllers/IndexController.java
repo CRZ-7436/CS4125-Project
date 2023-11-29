@@ -1,3 +1,5 @@
+
+/* 
 package com.ExtVision.RentalSystem.Controllers;
 
 import org.springframework.stereotype.Controller;
@@ -12,3 +14,4 @@ public class IndexController {
     }
 }
 
+*/

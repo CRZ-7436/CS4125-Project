@@ -11,13 +11,13 @@ public class CustomerServiceImpl implements CustomerService {
         // Customer can rent if account is active and balance is not negative
         // This is simply to be used for checks and to stop weird things like negative balances renting etc.
         
-        CustomerClass customer = customerMap.get(customerID);
+        CustomerClassInterface customer = customerMap.get(customerID);
         return customer != null && "Active".equals(customer.getAccountStatus()) && customer.getBalance() >= 0;
     }
 
     @Override
     public void rentItem(String customerID, int itemID) {
-        CustomerClass customer = customerMap.get(customerID);
+        CustomerClassInterface customer = customerMap.get(customerID);
         if (customer != null && canRent(customerID)) {
             customer.getCurrentRentals().add(itemID);
         }
@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void returnItem(String customerID, int itemID) {
-        CustomerClass customer = customerMap.get(customerID);
+        CustomerClassInterface customer = customerMap.get(customerID);
         if (customer != null && customer.getCurrentRentals().contains(itemID)) {
             customer.getCurrentRentals().remove(itemID);
         }
@@ -33,20 +33,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void payFees(String customerID, float amount) {
-        CustomerClass customer = customerMap.get(customerID);
+        CustomerClassInterface customer = customerMap.get(customerID);
         if (customer != null && amount > 0) {
             customer.setBalance(customer.getBalance() - amount);
         }
     }
 
     @Override
-    public CustomerClass getCustomerDetails(String customerID) {
+    public CustomerClassInterface getCustomerDetails(String customerID) {
         return customerMap.get(customerID);
     }
 
     @Override
     public void updateCustomerProfile(String customerID, String name, String address, double phoneNum, String email) {
-        CustomerClass customer = customerMap.get(customerID);
+        CustomerClassInterface customer = customerMap.get(customerID);
         if (customer != null) {
             customer.setName(name);
             customer.setAddress(address);

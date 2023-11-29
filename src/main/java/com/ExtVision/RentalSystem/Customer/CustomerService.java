@@ -5,6 +5,6 @@ public interface CustomerService {
     void rentItem(String customerID, int itemID);
     void returnItem(String customerID, int itemID);
     void payFees(String customerID, float amount);
-    CustomerClass getCustomerDetails(String customerID);
+    CustomerClassInterface getCustomerDetails(String customerID);
     void updateCustomerProfile(String customerID, String name, String address, double phoneNum, String email);
 }
