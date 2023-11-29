@@ -3,12 +3,13 @@ package com.ExtVision.RentalSystem.DVD;
 public class RentedState implements State {
     @Override
     public void markAsRented(DVDGame dvdGame) {
-        // Implementation for marking as rented
+        // Maybe add some logging if we have time
     }
 
     @Override
     public void markAsAvailable(DVDGame dvdGame) {
-        // Implementation for marking as available
+        // Change the state of the DVDGame to AvailableState
+        dvdGame.setState(new AvailableState());
     }
 
     @Override

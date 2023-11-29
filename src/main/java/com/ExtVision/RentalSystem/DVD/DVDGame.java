@@ -30,8 +30,8 @@ public class DVDGame {
         this.title = title;
         this.genre = genre;
         this.stateFactory = stateFactory;
-        this.state = stateFactory.createAvailableState(); // Initial state is available
-        this.stateIdentifier = this.state.toString(); // Store the state as a string
+        this.stateIdentifier = "AVAILABLE"; // Set initial state identifier
+        loadState(); // Load the state based on the identifier
     }
 
     // Getters and setters
