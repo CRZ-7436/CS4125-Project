@@ -1,5 +1,6 @@
 package com.ExtVision.RentalSystem.Clerk;
 
+import com.ExtVision.RentalSystem.Customer.CustomerClass;
 
 public class ClerkController {
     // process a rental
