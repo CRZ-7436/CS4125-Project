@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ public class DVDGameService {
 
     private final DVDGameRepository repository;
     private final StateFactory stateFactory;
+    private final List<DVDGameObserver> observers = new ArrayList<>();
 
     @Autowired
     public DVDGameService(DVDGameRepository repository, StateFactory stateFactory) {
@@ -41,15 +43,28 @@ public class DVDGameService {
         // Existing implementation
     }
 
-    // New method to save or update a DVDGame
     @Transactional
     public void save(DVDGame dvdGame) {
         repository.save(dvdGame);
+        notifyObservers(dvdGame); // Notify observers about the change
     }
 
-    // New method to delete a DVDGame by id
     @Transactional
     public void delete(Integer id) {
-        repository.deleteById(id);
+        Optional<DVDGame> dvdGame = repository.findById(id);
+        dvdGame.ifPresent(game -> {
+            repository.deleteById(id);
+            notifyObservers(game); // Notify observers about the deletion
+        });
+    }
+
+    public void registerObserver(DVDGameObserver observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers(DVDGame dvdGame) {
+        for (DVDGameObserver observer : observers) {
+            observer.update(dvdGame);
+        }
     }
 }
