@@ -2,58 +2,43 @@ package com.ExtVision.RentalSystem.DVD;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/dvdgames")
-public class DVDGameController {
+public class DVDGameController implements DVDGameObserver {
 
+    // Assume you have a service or repository for DVDGame operations
     private final DVDGameService dvdGameService;
 
-    @Autowired
     public DVDGameController(DVDGameService dvdGameService) {
         this.dvdGameService = dvdGameService;
     }
 
-    // Get all DVD games
     @GetMapping
-    public ResponseEntity<List<DVDGame>> getAllGames() {
-        return ResponseEntity.ok(dvdGameService.getAllGames());
+    public String listDVDGames(Model model) {
+        model.addAttribute("dvdGames", dvdGameService.findAll());
+        model.addAttribute("dvdGame", new DVDGame());
+        return "dvdgames";
     }
 
-    // Get DVD games by genre
-    @GetMapping("/genre/{genre}")
-    public ResponseEntity<List<DVDGame>> getGamesByGenre(@PathVariable String genre) {
-        return ResponseEntity.ok(dvdGameService.getGamesByGenre(genre));
+    @PostMapping
+    public String addOrUpdateDVDGame(@ModelAttribute DVDGame dvdGame) {
+        dvdGameService.save(dvdGame);
+        return "redirect:/dvdgames";
     }
 
-    // Rent a DVD game
-    @PostMapping("/rent/{gameId}")
-    public ResponseEntity<String> rentDVDGame(@PathVariable int gameId) {
-        try {
-            dvdGameService.rentDVDGame(gameId);
-            return ResponseEntity.ok("Game rented successfully.");
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @GetMapping("/delete/{id}")
+    public String deleteDVDGame(@PathVariable Long id) {
+        dvdGameService.delete(id);
+        return "redirect:/dvdgames";
     }
 
-    // Return a DVD game
-    @PostMapping("/return/{gameId}")
-    public ResponseEntity<String> returnDVDGame(@PathVariable int gameId) {
-        try {
-            dvdGameService.returnDVDGame(gameId);
-            return ResponseEntity.ok("Game returned successfully.");
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    // Find available DVD games
-    @GetMapping("/available")
-    public ResponseEntity<List<DVDGame>> findAvailableDVDGames() {
-        return ResponseEntity.ok(dvdGameService.findAvailableDVDGames());
+    @Override
+    public void update(DVDGame dvdGame) {
+        // Implement your observer update logic here
     }
 }
