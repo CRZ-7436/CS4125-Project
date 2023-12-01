@@ -7,16 +7,20 @@ import java.util.List;
 
 import org.hibernate.query.sqm.StrictJpaComplianceViolation;
 
+import jakarta.persistence.Entity;
+
 
 
 // This is the main class for Customer in the rental system
+@Entity
 public class CustomerClass extends Customer implements CustomerClassInterface {
     // Attributes of the customer
-    private int customerID;
+    public int customerID;
     private String name;
     private String address;
     private double phoneNum;
     private String email;
+    
     private String accountStatus;
     private List<Integer> currentRentals; // List to keep track of current rentals on customers account
     private float balance; // Customer's balance for renting
@@ -28,6 +32,7 @@ public class CustomerClass extends Customer implements CustomerClassInterface {
         this.address = address;
         this.phoneNum = 00000000000;
         this.email = email;
+        
         this.accountStatus = "Active"; // Default status is 'Active' as if a customer class is created it should be used
         this.currentRentals = new ArrayList<>(); // Initialize the list of current rentals should be init empty
         this.balance = 0.0f; // Set the balance to zero init

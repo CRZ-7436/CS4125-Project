@@ -1,5 +1,7 @@
 package com.ExtVision.RentalSystem.Controllers;
 
+import com.ExtVision.RentalSystem.Customer.Customer;
+import com.ExtVision.RentalSystem.Customer.CustomerFactory;
 import com.ExtVision.RentalSystem.LoginFunc.LoginClass;
 import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
 import org.springframework.stereotype.Controller;
@@ -39,17 +41,31 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String username, @RequestParam String password,
-                           @RequestParam(defaultValue = "false") boolean admin, Model model) {
+    public String register(@RequestParam String username, 
+                       @RequestParam String password,
+                       @RequestParam String address,
+                       @RequestParam String phoneNum,
+                       @RequestParam String email,
+                       @RequestParam(defaultValue = "false") boolean admin, 
+                       Model model) {
+    // Existing logic to register account with username and password
         String registerResult = loginClass.registerAccount(username, password, admin);
 
         if (registerResult.equals(LoginState.LOGGED_IN)) {
-            return "redirect:/dashboard";
+            // Create a CustomerClass object
+            // Implement this method to generate unique IDs
+            int customerID = loginClass.generateCustomerID();
+            Customer newCustomer = CustomerFactory.createCustomer(customerID, username, address,  phoneNum,  email);
+
+            loginClass.saveCustomer(newCustomer);
+
+            return "redirect:/index";
         } else {
-            model.addAttribute("error", registerResult);
-            return "register";
+        model.addAttribute("error", registerResult);
+        return "register";
         }
-    }
+}
+
 
     @PostMapping("/logout")
     public String logout(@RequestParam String username) {

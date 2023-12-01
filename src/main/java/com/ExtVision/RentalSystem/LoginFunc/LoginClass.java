@@ -1,22 +1,29 @@
 package com.ExtVision.RentalSystem.LoginFunc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ExtVision.RentalSystem.CustomerRepository;
+import com.ExtVision.RentalSystem.Customer.Customer;
 import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
 
 import static com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.getLoginStateMessage;
 
 @Service
-public class LoginClass {
-    private static List<Integer> accounts;
+public class LoginClass{
+    private static List<Integer> accounts = new ArrayList<>();;
     private int accountId;
     private Map<String, String> loginCredentials;
     private boolean admin;
     private boolean active;
+
+    @Autowired
+    private CustomerRepository customerRepository;
     
     public LoginClass() {
         loginCredentials = new HashMap<>();
@@ -33,6 +40,9 @@ public class LoginClass {
         } else {
             return getLoginStateMessage(LoginState.LOGIN_FAILED);
         }
+    }
+    public int generateCustomerID(){
+        return accounts.size();
     }
 
     public String login(String username, String password) {
@@ -74,6 +84,9 @@ public class LoginClass {
 
     private void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+    public void saveCustomer(Customer customer) {
+        customerRepository.save(customer);
     }
 }
 
