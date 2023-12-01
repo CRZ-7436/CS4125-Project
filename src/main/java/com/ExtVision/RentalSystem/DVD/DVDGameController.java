@@ -1,39 +1,37 @@
 package com.ExtVision.RentalSystem.DVD;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/dvdgames")
 public class DVDGameController implements DVDGameObserver {
 
-    // Assume you have a service or repository for DVDGame operations
     private final DVDGameService dvdGameService;
 
+    @Autowired
     public DVDGameController(DVDGameService dvdGameService) {
         this.dvdGameService = dvdGameService;
     }
 
     @GetMapping
     public String listDVDGames(Model model) {
-        model.addAttribute("dvdGames", dvdGameService.findAll());
+        model.addAttribute("dvdGames", dvdGameService.getAllGames()); // Changed to getAllGames()
         model.addAttribute("dvdGame", new DVDGame());
-        return "dvdgames";
+        return "dvdgames"; // Name of the Thymeleaf template
     }
 
     @PostMapping
     public String addOrUpdateDVDGame(@ModelAttribute DVDGame dvdGame) {
-        dvdGameService.save(dvdGame);
+        dvdGameService.save(dvdGame); // Ensure save() is implemented in DVDGameService
         return "redirect:/dvdgames";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteDVDGame(@PathVariable Long id) {
-        dvdGameService.delete(id);
+    public String deleteDVDGame(@PathVariable Integer id) {
+        dvdGameService.delete(id); // Ensure delete(Long id) is implemented in DVDGameService
         return "redirect:/dvdgames";
     }
 
