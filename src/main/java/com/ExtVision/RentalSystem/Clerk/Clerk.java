@@ -8,9 +8,9 @@ import com.ExtVision.RentalSystem.LoginFunc.LoginClass;
  * There are two bools for if the account is active or not, and if the account is an admin or not (creating/changing users)
 */
 public abstract class Clerk extends LoginClass {
-    private int accountId;
+    protected int accountId;
     private String username;
     private String password;
-    private boolean active;
-    private boolean admin;
+    protected boolean active;
+    protected boolean admin;
 }

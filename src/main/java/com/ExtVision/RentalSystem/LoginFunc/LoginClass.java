@@ -11,7 +11,7 @@ import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
 import static com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.getLoginStateMessage;
 
 @Service
-public class LoginClass {
+public abstract class LoginClass {
     private static List<Integer> accounts;
     private int accountId;
     private Map<String, String> loginCredentials;

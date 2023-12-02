@@ -1,15 +1,15 @@
 package com.ExtVision.RentalSystem.Clerk;
 
-import java.util.ArrayList;
 import com.ExtVision.RentalSystem.Observer.Observer;
+import com.ExtVision.RentalSystem.DVD.State;
 
 public class ClerkClass extends Clerk implements Observer {
     // declare attributes for the Clerk object
-    private int accountId;
+    protected int accountId;
     private String username;
     private String password;
-    private boolean active;
-    private boolean admin;
+    protected boolean active;
+    protected boolean admin;
 
     // empty contructor that creates an account with default values
     public ClerkClass () {
