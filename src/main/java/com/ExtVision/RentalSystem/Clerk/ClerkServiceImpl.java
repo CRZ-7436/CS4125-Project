@@ -37,26 +37,22 @@ public class ClerkServiceImpl implements ClerkService {
 
     @Override
     public void addCustomer(int customerID, String name, String address, String phone, String email) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addCustomer'");
     }
 
     @Override
     public void removeCustomer(int accountID) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeCustomer'");
     }
 
     // process a rental
     public void processRental(CustomerClass cust, DVDGame disc) {
-        // TODO: DVDGame isn't implemented yet
         try {
             if (disc.getState() == new AvailableState()) {
                 
             }
             else {
                 System.out.println("You can't rent any DVDs!!!");
-                //TODO: change this once UI is implemented
             }
         }
         catch (Exception e ) {
@@ -67,7 +63,6 @@ public class ClerkServiceImpl implements ClerkService {
 
     // process a return
     public void processReturn(CustomerClass cust, DVDGame disc) {
-        // TODO: DVDGame isn't implemented yet
         try {
             
         }
