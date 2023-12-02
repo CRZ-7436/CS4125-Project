@@ -10,7 +10,7 @@ import jakarta.persistence.Transient;
 public class DVDGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemID;
+    private Integer itemID;
     private String title;
     private String genre;
     private String stateIdentifier; // Stores the state as a string for persistence
@@ -25,7 +25,7 @@ public class DVDGame {
         // Default constructor for JPA
     }
 
-    public DVDGame(int itemID, String title, String genre, StateFactory stateFactory) {
+    public DVDGame(Integer itemID, String title, String genre, StateFactory stateFactory) {
         this.itemID = itemID;
         this.title = title;
         this.genre = genre;
@@ -36,11 +36,11 @@ public class DVDGame {
 
     // Getters and setters
 
-    public int getItemID() {
+    public Integer getItemID() {
         return itemID;
     }
 
-    public void setItemID(int itemID) {
+    public void setItemID(Integer itemID) {
         this.itemID = itemID;
     }
 

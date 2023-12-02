@@ -25,12 +25,20 @@ public class DVDGameService {
         return repository.findAll();
     }
 
+    public DVDGame findById(Integer id) {
+        return repository.findById(id).orElse(null); // Return the DVDGame or null if not found
+    }
+
     public List<DVDGame> getGamesByGenre(String genre) {
         return repository.findByGenre(genre);
     }
 
     public List<DVDGame> findAvailableDVDGames() {
         return repository.findByStateIdentifier("AVAILABLE");
+    }
+
+    public List<DVDGame> findRentedDVDGames() {
+        return repository.findByStateIdentifier("RENTED");
     }
 
     @Transactional
@@ -50,6 +58,20 @@ public class DVDGameService {
     }
 
     @Transactional
+    public void updateDVDGame(DVDGame updatedDvdGame) {
+        DVDGame existingDvdGame = repository.findById(updatedDvdGame.getItemID())
+                                        .orElseThrow(() -> new RuntimeException("DVDGame not found with ID: " + updatedDvdGame.getItemID()));
+
+        // Update the existing DVDGame with new values
+        existingDvdGame.setTitle(updatedDvdGame.getTitle());
+        existingDvdGame.setGenre(updatedDvdGame.getGenre());
+        // ... update other fields as necessary
+
+        repository.save(existingDvdGame);
+        notifyObservers(existingDvdGame); // Notify observers about the update
+    }
+
+    @Transactional
     public void delete(Integer id) {
         Optional<DVDGame> dvdGame = repository.findById(id);
         dvdGame.ifPresent(game -> {
@@ -62,9 +84,10 @@ public class DVDGameService {
         observers.add(observer);
     }
 
-    public void notifyObservers(DVDGame dvdGame) {
+    private void notifyObservers(DVDGame dvdGame) {
         for (DVDGameObserver observer : observers) {
             observer.update(dvdGame);
         }
     }
 }
+
