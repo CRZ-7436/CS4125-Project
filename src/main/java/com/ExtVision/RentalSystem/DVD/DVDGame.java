@@ -22,7 +22,7 @@ public class DVDGame {
     private StateFactory stateFactory; // Used for creating state instances
 
     public DVDGame() {
-        // Default constructor for JPA
+        this.stateIdentifier = "AVAILABLE"; // Set initial state identifier
     }
 
     public DVDGame(Integer itemID, String title, String genre, StateFactory stateFactory) {
@@ -73,8 +73,17 @@ public class DVDGame {
         return stateIdentifier;
     }
 
+    public void setStateIdentifier(String stateIdentifier) {
+        this.stateIdentifier = stateIdentifier;
+        if (this.stateFactory != null) {
+            this.state = stateFactory.createState(stateIdentifier);
+        }
+    }
+
     public void loadState() {
-        this.state = stateFactory.createState(stateIdentifier); // Load the state based on the identifier
+        if (this.stateFactory != null) {
+            this.state = stateFactory.createState(stateIdentifier); // Load the state based on the identifier
+        }
     }
 
     public void markAsRented() {
@@ -83,5 +92,13 @@ public class DVDGame {
 
     public void markAsAvailable() {
         state.markAsAvailable(this);
+    }
+
+    // Ensure to inject StateFactory after construction
+    public void setStateFactory(StateFactory stateFactory) {
+        this.stateFactory = stateFactory;
+        if (this.stateIdentifier != null) {
+            this.state = stateFactory.createState(this.stateIdentifier);
+        }
     }
 }

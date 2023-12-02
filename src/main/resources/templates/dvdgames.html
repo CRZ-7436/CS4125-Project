@@ -7,17 +7,18 @@
 <body>
     <h1>DVD Games Management</h1>
 
-    <!-- Form for creating a new DVDGame -->
-    <form th:action="@{/dvdgames/add}" method="post">
+    <!-- Form for creating or editing a DVDGame -->
+    <form th:action="@{/dvdgames/add}" th:object="${dvdGame}" method="post">
+        <input type="hidden" th:field="*{itemID}" />
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" th:field="*{title}" placeholder="Title" required>
 
         <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre" required>
+        <input type="text" th:field="*{genre}" placeholder="Genre" required>
 
         <!-- Add other fields as necessary -->
 
-        <button type="submit">Add DVD Game</button>
+        <button type="submit">Submit</button>
     </form>
 
     <!-- Displaying Available DVD Games -->
@@ -26,7 +27,8 @@
         <div>
             <p>Title: <span th:text="${dvdGame.title}"></span></p>
             <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
-            <!-- Display other attributes as needed -->
+            <!-- Edit link -->
+            <a th:href="@{/dvdgames/edit/{id}(id=${dvdGame.itemID})}">Edit</a>
         </div>
     </div>
 
@@ -36,7 +38,8 @@
         <div>
             <p>Title: <span th:text="${dvdGame.title}"></span></p>
             <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
-            <!-- Display other attributes as needed -->
+            <!-- Edit link -->
+            <a th:href="@{/dvdgames/edit/{id}(id=${dvdGame.itemID})}">Edit</a>
         </div>
     </div>
 </body>

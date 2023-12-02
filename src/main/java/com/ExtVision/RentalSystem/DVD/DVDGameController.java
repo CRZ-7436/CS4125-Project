@@ -14,26 +14,33 @@ public class DVDGameController implements DVDGameObserver {
     @Autowired
     public DVDGameController(DVDGameService dvdGameService) {
         this.dvdGameService = dvdGameService;
-        dvdGameService.registerObserver(this); // Register as an observer
+        dvdGameService.registerObserver(this);
     }
 
     @GetMapping
     public String listDVDGames(Model model) {
         model.addAttribute("availableDvdGames", dvdGameService.findAvailableDVDGames());
-        model.addAttribute("rentedDvdGames", dvdGameService.findRentedDVDGames()); // Assuming you have this method in your service
+        model.addAttribute("rentedDvdGames", dvdGameService.findRentedDVDGames());
         model.addAttribute("dvdGame", new DVDGame());
         return "dvdgames";
     }
 
-    @PostMapping("/add")
-    public String addDVDGame(@ModelAttribute DVDGame dvdGame) {
-        dvdGameService.save(dvdGame);
-        return "redirect:/dvdgames";
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model) {
+        DVDGame dvdGame = dvdGameService.findById(id);
+        model.addAttribute("dvdGame", dvdGame);
+        model.addAttribute("availableDvdGames", dvdGameService.findAvailableDVDGames());
+        model.addAttribute("rentedDvdGames", dvdGameService.findRentedDVDGames());
+        return "dvdgames";
     }
 
-    @PostMapping("/update")
-    public String updateDVDGame(@ModelAttribute DVDGame dvdGame) {
-        dvdGameService.updateDVDGame(dvdGame);
+    @PostMapping("/add")
+    public String addOrUpdateDVDGame(@ModelAttribute DVDGame dvdGame) {
+        if (dvdGame.getItemID() != null && dvdGame.getItemID() > 0) {
+            dvdGameService.updateDVDGame(dvdGame);
+        } else {
+            dvdGameService.save(dvdGame);
+        }
         return "redirect:/dvdgames";
     }
 
@@ -43,7 +50,6 @@ public class DVDGameController implements DVDGameObserver {
         return "redirect:/dvdgames";
     }
 
-    // Add endpoints for renting and returning DVD games
     @GetMapping("/rent/{id}")
     public String rentDVDGame(@PathVariable Integer id) {
         dvdGameService.rentDVDGame(id);
@@ -59,6 +65,5 @@ public class DVDGameController implements DVDGameObserver {
     @Override
     public void update(DVDGame dvdGame) {
         // Implement logic to handle updates
-        // For example, logging the change, updating a view, etc.
     }
 }
