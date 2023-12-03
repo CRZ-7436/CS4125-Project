@@ -1,3 +1,5 @@
+
+/* 
 package com.ExtVision.RentalSystem.Customer;
 
 import java.util.List;
@@ -18,3 +20,4 @@ public abstract class Customer extends LoginClass {
     // ... other getters and setters
 }
 
+*/

@@ -1,6 +1,6 @@
 package com.ExtVision.RentalSystem.Controllers;
 
-import com.ExtVision.RentalSystem.Customer.Customer;
+import com.ExtVision.RentalSystem.Customer.CustomerClass;
 import com.ExtVision.RentalSystem.Customer.CustomerFactory;
 import com.ExtVision.RentalSystem.LoginFunc.LoginClass;
 import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
@@ -55,7 +55,7 @@ public class LoginController {
             // Create a CustomerClass object
             // Implement this method to generate unique IDs
             int customerID = loginClass.generateCustomerID();
-            Customer newCustomer = CustomerFactory.createCustomer(customerID, username, address,  phoneNum,  email);
+            CustomerClass newCustomer = CustomerFactory.createCustomer(customerID, username, address,  phoneNum,  email);
 
             loginClass.saveCustomer(newCustomer);
 

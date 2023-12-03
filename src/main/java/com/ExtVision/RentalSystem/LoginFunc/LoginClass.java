@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ExtVision.RentalSystem.CustomerRepository;
-import com.ExtVision.RentalSystem.Customer.Customer;
+import com.ExtVision.RentalSystem.Customer.CustomerClass;
 import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
 
 import static com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.getLoginStateMessage;
@@ -85,7 +85,7 @@ public class LoginClass{
     private void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    public void saveCustomer(Customer customer) {
+    public void saveCustomer(CustomerClass customer) {
         customerRepository.save(customer);
     }
 }

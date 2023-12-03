@@ -8,13 +8,18 @@ import java.util.List;
 import org.hibernate.query.sqm.StrictJpaComplianceViolation;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 
 
 // This is the main class for Customer in the rental system
 @Entity
-public class CustomerClass extends Customer implements CustomerClassInterface {
+public class CustomerClass implements CustomerClassInterface {
     // Attributes of the customer
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int customerID;
     private String name;
     private String address;
@@ -27,15 +32,7 @@ public class CustomerClass extends Customer implements CustomerClassInterface {
 
     // Constructor to initialize a Customer object
     public CustomerClass(int customerID, String name, String address, String phone, String email) {
-        this.customerID = customerID;
-        this.name = name;
-        this.address = address;
-        this.phoneNum = 00000000000;
-        this.email = email;
-        
-        this.accountStatus = "Active"; // Default status is 'Active' as if a customer class is created it should be used
-        this.currentRentals = new ArrayList<>(); // Initialize the list of current rentals should be init empty
-        this.balance = 0.0f; // Set the balance to zero init
+
     }
 
     // Business Logic Methods
@@ -155,13 +152,13 @@ public class CustomerClass extends Customer implements CustomerClassInterface {
     // Updates the customer's profile information
     // This method might need to be inside the clerk class but I added here so Customer objects aren't set 
     @Override
-    public void updateProfile(String name, String address, String phone, String email) {
+    public void updateProfile(String name, String address, double phone, String email) {
         if (!isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid email format.");
         }
         this.name = name;
         this.address = address;
-        this.phone = phone;
+        this.phoneNum = phone;
         this.email = email;
     }
 }
