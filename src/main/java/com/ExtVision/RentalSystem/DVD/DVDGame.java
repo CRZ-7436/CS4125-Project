@@ -76,4 +76,12 @@ public class DVDGame {
     public void loadState() {
         this.state = stateFactory.createState(stateIdentifier); // Load the state based on the identifier
     }
+
+    public void markAsRented() {
+        state.markAsRented(this);
+    }
+
+    public void markAsAvailable() {
+        state.markAsAvailable(this);
+    }
 }
