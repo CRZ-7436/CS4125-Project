@@ -15,19 +15,24 @@ public abstract class LoginClass {
     private Map<String, String> loginCredentials;
     private static List<Integer> accounts;
     private int accountId;
-    protected boolean admin;
     protected boolean active;
     
     public LoginClass() {
         loginCredentials = new HashMap<>();
+        this.active = false;
     }
 
-    public String registerAccount(String username, String password, boolean admin) {
+    public LoginClass(String username, String password, boolean active) {
+        loginCredentials = new HashMap<>();
+        loginCredentials.put(username, encryptPassword(password));
+        this.active = active;
+    }
+
+    public String registerAccount(String username, String password) {
         if (!loginCredentials.containsKey(username)) {
             loginCredentials.put(username, encryptPassword(password));
             accountId = accounts.size();
             accounts.add(accountId);
-            this.setAdmin(admin);
             // Additional logic to add customer to the database or customer management system
             return getLoginStateMessage(LoginState.LOGGED_IN);
         } else {
@@ -70,10 +75,6 @@ public abstract class LoginClass {
     private boolean checkPassword(String inputPassword, String storedPassword) {
         // Password comparison logic should be implemented here
         return inputPassword.equals(decryptPassword(storedPassword)); // This is a placeholder
-    }
-
-    private void setAdmin(boolean admin) {
-        this.admin = admin;
     }
 
     // add user to list of accounts

@@ -1,6 +1,7 @@
 package com.ExtVision.RentalSystem.Clerk;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ExtVision.RentalSystem.Customer.CustomerClass;
 import com.ExtVision.RentalSystem.Customer.CustomerFactory;
@@ -8,6 +9,9 @@ import com.ExtVision.RentalSystem.Customer.CustomerService;
 import com.ExtVision.RentalSystem.DVD.DVDGame;
 import com.ExtVision.RentalSystem.LoginFunc.LoginClass;
 
+import jakarta.transaction.Transactional;
+
+@Service
 public class ClerkService {
 
     private final CustomerService customerService;
@@ -59,6 +63,7 @@ public class ClerkService {
     }
 
     // process a rental
+    @Transactional
     public void processRental(CustomerClass cust, DVDGame disc) {
         try {
             if (disc.getState() == disc.getState()) {
@@ -75,6 +80,7 @@ public class ClerkService {
     }
 
     // process a return
+    @Transactional
     public void processReturn(CustomerClass cust, DVDGame disc) {
         try {
             

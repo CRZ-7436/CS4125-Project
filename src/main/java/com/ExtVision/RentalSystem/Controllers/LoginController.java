@@ -41,7 +41,7 @@ public class LoginController {
     @PostMapping("/register")
     public String register(@RequestParam String username, @RequestParam String password,
                            @RequestParam(defaultValue = "false") boolean admin, Model model) {
-        String registerResult = loginClass.registerAccount(username, password, admin);
+        String registerResult = loginClass.registerAccount(username, password);
 
         if (registerResult.equals(LoginState.LOGGED_IN)) {
             return "redirect:/dashboard";
