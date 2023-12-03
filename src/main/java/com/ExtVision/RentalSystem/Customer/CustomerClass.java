@@ -20,7 +20,7 @@ public class CustomerClass implements CustomerClassInterface {
     // Attributes of the customer
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int customerID;
+    public Integer customerID;
     private String name;
     private String address;
     private double phoneNum;
@@ -31,8 +31,17 @@ public class CustomerClass implements CustomerClassInterface {
     private float balance; // Customer's balance for renting
 
     // Constructor to initialize a Customer object
-    public CustomerClass(int customerID, String name, String address, String phone, String email) {
+    public CustomerClass() {
 
+    }
+    public CustomerClass(Integer customerID, String name, String address, double phoneNum, String email){
+        this.customerID = customerID;
+        this.name = name;
+        this.address = address;
+        this.phoneNum = phoneNum;
+        this.email = email;
+        this.accountStatus = "ACTIVE";
+        
     }
 
     // Business Logic Methods
@@ -50,7 +59,7 @@ public class CustomerClass implements CustomerClassInterface {
     // Returns the customer ID
     
     @Override
-    public int getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
     
@@ -106,7 +115,12 @@ public class CustomerClass implements CustomerClassInterface {
     // Mutator methods (setters) for attributes that should be changeable
     
     // Foundation of the Mutator methods, this is just some basic values is not completed yet 
-
+    
+    @Override
+    public void setCustomerID(Integer customerId){
+        this.customerID = customerId;
+    }
+    
     // Updates the account status
     @Override
     public void setAccountStatus(String accountStatus) {

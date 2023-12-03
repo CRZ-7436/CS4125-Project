@@ -5,14 +5,31 @@
 </head>
 <body>
     <h2>Register</h2>
-    <form action="/register" method="post">
-        <input type="text" name="username" placeholder="Name" required><br>
-        <input type="text" name="address" placeholder="Address" required><br>
-        <input type="text" name="phoneNum" placeholder="Phone Number" required><br>
-        <input type="email" name="email" placeholder="Email" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
+    <form th:action="@{/registerCustomer/add}" th:object="${customer}" method="post">
+        <input type="hidden" th:field="*{customerId}" />
+        <label for="name">Title:</label>
+        <input type="text" th:field="*{name}" placeholder="name" required>
+
+        
+        <label for="address">address:</label>
+        <input type="text" th:field="*{address}" placeholder="address" required>
+
+        
+        <label for="phoneNum">Title:</label>
+        <input type="text" th:field="*{phoneNum}" placeholder="phoneNum" required>
+
+        
+        <label for="email">Title:</label>
+        <input type="text" th:field="*{email}" placeholder="email" required>
+   
+        <label for="password">Title:</label>
+        <input type="text" th:field="*{password}" placeholder="password" required>
+
+        
+        <label for="admin">Title:</label>
         <input type="checkbox" name="admin" value="true"> Admin<br>
         <button type="submit">Register</button>
     </form>
+
 </body>
 </html>
