@@ -43,13 +43,23 @@ public class DVDGameService {
 
     @Transactional
     public void rentDVDGame(int gameId) {
-        // Existing implementation
+        DVDGame dvdGame = repository.findById(gameId)
+                                    .orElseThrow(() -> new RuntimeException("DVDGame not found with ID: " + gameId));
+        dvdGame.setStateIdentifier("RENTED");
+        repository.save(dvdGame);
+        notifyObservers(dvdGame);
     }
+
 
     @Transactional
     public void returnDVDGame(int gameId) {
-        // Existing implementation
+        DVDGame dvdGame = repository.findById(gameId)
+                                    .orElseThrow(() -> new RuntimeException("DVDGame not found with ID: " + gameId));
+        dvdGame.setStateIdentifier("AVAILABLE");
+        repository.save(dvdGame);
+        notifyObservers(dvdGame);
     }
+
 
     @Transactional
     public void save(DVDGame dvdGame) {
