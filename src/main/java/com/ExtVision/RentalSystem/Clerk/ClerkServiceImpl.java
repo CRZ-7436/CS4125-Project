@@ -1,6 +1,8 @@
 package com.ExtVision.RentalSystem.Clerk;
 
 import com.ExtVision.RentalSystem.Customer.CustomerClass;
+import com.ExtVision.RentalSystem.DVD.AvailableState;
+import com.ExtVision.RentalSystem.DVD.DVDGame;
 
 public class ClerkServiceImpl implements ClerkService {
     @Override
@@ -31,5 +33,42 @@ public class ClerkServiceImpl implements ClerkService {
     @Override
     public void removeDVDGame(DVDGame dvdGame) {
         //implement when DVDgame has a db to store DVDgames
+    }
+
+    @Override
+    public void addCustomer(int customerID, String name, String address, String phone, String email) {
+        throw new UnsupportedOperationException("Unimplemented method 'addCustomer'");
+    }
+
+    @Override
+    public void removeCustomer(int accountID) {
+        throw new UnsupportedOperationException("Unimplemented method 'removeCustomer'");
+    }
+
+    // process a rental
+    public void processRental(CustomerClass cust, DVDGame disc) {
+        try {
+            if (disc.getState() == new AvailableState()) {
+                
+            }
+            else {
+                System.out.println("You can't rent any DVDs!!!");
+            }
+        }
+        catch (Exception e ) {
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }
+    }
+
+    // process a return
+    public void processReturn(CustomerClass cust, DVDGame disc) {
+        try {
+            
+        }
+        catch (Exception e) {
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }
     }
 }

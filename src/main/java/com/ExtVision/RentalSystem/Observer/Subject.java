@@ -1,5 +1,6 @@
 package com.ExtVision.RentalSystem.Observer;
 
+import com.ExtVision.RentalSystem.DVD.State;
 
 public interface Subject {
     public void registerObserver(Observer observer);
