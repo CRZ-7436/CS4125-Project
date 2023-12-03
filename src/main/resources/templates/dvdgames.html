@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DVD Games Management</title>
+</head>
+<body>
+    <h1>DVD Games Management</h1>
+
+    <!-- Form for creating or editing a DVDGame -->
+    <form th:action="@{/dvdgames/add}" th:object="${dvdGame}" method="post">
+        <input type="hidden" th:field="*{itemID}" />
+        <label for="title">Title:</label>
+        <input type="text" th:field="*{title}" placeholder="Title" required>
+
+        <label for="genre">Genre:</label>
+        <input type="text" th:field="*{genre}" placeholder="Genre" required>
+
+        <!-- Add other fields as necessary -->
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Displaying Available DVD Games -->
+    <h2>Available DVD Games</h2>
+    <div th:each="dvdGame : ${availableDvdGames}">
+        <div>
+            <p>Title: <span th:text="${dvdGame.title}"></span></p>
+            <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
+            <!-- Edit link -->
+            <a th:href="@{/dvdgames/edit/{id}(id=${dvdGame.itemID})}">Edit</a>
+        </div>
+    </div>
+
+    <!-- Displaying Rented DVD Games -->
+    <h2>Rented DVD Games</h2>
+    <div th:each="dvdGame : ${rentedDvdGames}">
+        <div>
+            <p>Title: <span th:text="${dvdGame.title}"></span></p>
+            <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
+            <!-- Edit link -->
+            <a th:href="@{/dvdgames/edit/{id}(id=${dvdGame.itemID})}">Edit</a>
+        </div>
+    </div>
+</body>
+</html>
