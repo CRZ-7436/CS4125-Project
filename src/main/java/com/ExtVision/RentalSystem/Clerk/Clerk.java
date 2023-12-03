@@ -1,17 +1,11 @@
 package com.ExtVision.RentalSystem.Clerk;
 
 import com.ExtVision.RentalSystem.Observer.Observer;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
 import com.ExtVision.RentalSystem.DVD.State;
 import com.ExtVision.RentalSystem.LoginFunc.LoginClass;
 
-@Entity
 public class Clerk extends LoginClass implements Observer {
     // declare attributes for the Clerk object
-    @Id
     protected int accountId;
     private boolean admin;
 
