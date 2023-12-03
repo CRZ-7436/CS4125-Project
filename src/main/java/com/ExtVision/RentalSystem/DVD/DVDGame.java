@@ -10,7 +10,7 @@ import jakarta.persistence.Transient;
 public class DVDGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemID;
+    private Integer itemID;
     private String title;
     private String genre;
     private String stateIdentifier; // Stores the state as a string for persistence
@@ -22,10 +22,10 @@ public class DVDGame {
     private StateFactory stateFactory; // Used for creating state instances
 
     public DVDGame() {
-        // Default constructor for JPA
+        this.stateIdentifier = "AVAILABLE"; // Set initial state identifier
     }
 
-    public DVDGame(int itemID, String title, String genre, StateFactory stateFactory) {
+    public DVDGame(Integer itemID, String title, String genre, StateFactory stateFactory) {
         this.itemID = itemID;
         this.title = title;
         this.genre = genre;
@@ -36,11 +36,11 @@ public class DVDGame {
 
     // Getters and setters
 
-    public int getItemID() {
+    public Integer getItemID() {
         return itemID;
     }
 
-    public void setItemID(int itemID) {
+    public void setItemID(Integer itemID) {
         this.itemID = itemID;
     }
 
@@ -73,8 +73,17 @@ public class DVDGame {
         return stateIdentifier;
     }
 
+    public void setStateIdentifier(String stateIdentifier) {
+        this.stateIdentifier = stateIdentifier;
+        if (this.stateFactory != null) {
+            this.state = stateFactory.createState(stateIdentifier);
+        }
+    }
+
     public void loadState() {
-        this.state = stateFactory.createState(stateIdentifier); // Load the state based on the identifier
+        if (this.stateFactory != null) {
+            this.state = stateFactory.createState(stateIdentifier); // Load the state based on the identifier
+        }
     }
 
     public void markAsRented() {
@@ -83,5 +92,13 @@ public class DVDGame {
 
     public void markAsAvailable() {
         state.markAsAvailable(this);
+    }
+
+    // Ensure to inject StateFactory after construction
+    public void setStateFactory(StateFactory stateFactory) {
+        this.stateFactory = stateFactory;
+        if (this.stateIdentifier != null) {
+            this.state = stateFactory.createState(this.stateIdentifier);
+        }
     }
 }

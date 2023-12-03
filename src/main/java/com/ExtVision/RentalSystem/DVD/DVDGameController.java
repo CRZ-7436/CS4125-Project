@@ -1,59 +1,69 @@
 package com.ExtVision.RentalSystem.DVD;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/dvdgames")
-public class DVDGameController {
+public class DVDGameController implements DVDGameObserver {
 
     private final DVDGameService dvdGameService;
 
     @Autowired
     public DVDGameController(DVDGameService dvdGameService) {
         this.dvdGameService = dvdGameService;
+        dvdGameService.registerObserver(this);
     }
 
-    // Get all DVD games
     @GetMapping
-    public ResponseEntity<List<DVDGame>> getAllGames() {
-        return ResponseEntity.ok(dvdGameService.getAllGames());
+    public String listDVDGames(Model model) {
+        model.addAttribute("availableDvdGames", dvdGameService.findAvailableDVDGames());
+        model.addAttribute("rentedDvdGames", dvdGameService.findRentedDVDGames());
+        model.addAttribute("dvdGame", new DVDGame());
+        return "dvdgames";
     }
 
-    // Get DVD games by genre
-    @GetMapping("/genre/{genre}")
-    public ResponseEntity<List<DVDGame>> getGamesByGenre(@PathVariable String genre) {
-        return ResponseEntity.ok(dvdGameService.getGamesByGenre(genre));
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model) {
+        DVDGame dvdGame = dvdGameService.findById(id);
+        model.addAttribute("dvdGame", dvdGame);
+        model.addAttribute("availableDvdGames", dvdGameService.findAvailableDVDGames());
+        model.addAttribute("rentedDvdGames", dvdGameService.findRentedDVDGames());
+        return "dvdgames";
     }
 
-    // Rent a DVD game
-    @PostMapping("/rent/{gameId}")
-    public ResponseEntity<String> rentDVDGame(@PathVariable int gameId) {
-        try {
-            dvdGameService.rentDVDGame(gameId);
-            return ResponseEntity.ok("Game rented successfully.");
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+    @PostMapping("/add")
+    public String addOrUpdateDVDGame(@ModelAttribute DVDGame dvdGame) {
+        if (dvdGame.getItemID() != null && dvdGame.getItemID() > 0) {
+            dvdGameService.updateDVDGame(dvdGame);
+        } else {
+            dvdGameService.save(dvdGame);
         }
+        return "redirect:/dvdgames";
     }
 
-    // Return a DVD game
-    @PostMapping("/return/{gameId}")
-    public ResponseEntity<String> returnDVDGame(@PathVariable int gameId) {
-        try {
-            dvdGameService.returnDVDGame(gameId);
-            return ResponseEntity.ok("Game returned successfully.");
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @GetMapping("/delete/{id}")
+    public String deleteDVDGame(@PathVariable Integer id) {
+        dvdGameService.delete(id);
+        return "redirect:/dvdgames";
     }
 
-    // Find available DVD games
-    @GetMapping("/available")
-    public ResponseEntity<List<DVDGame>> findAvailableDVDGames() {
-        return ResponseEntity.ok(dvdGameService.findAvailableDVDGames());
+    @GetMapping("/rent/{id}")
+    public String rentDVDGame(@PathVariable Integer id) {
+        dvdGameService.rentDVDGame(id);
+        return "redirect:/dvdgames";
+    }
+
+    @GetMapping("/return/{id}")
+    public String returnDVDGame(@PathVariable Integer id) {
+        dvdGameService.returnDVDGame(id);
+        return "redirect:/dvdgames";
+    }
+
+    @Override
+    public void update(DVDGame dvdGame) {
+        // Implement logic to handle updates
     }
 }
