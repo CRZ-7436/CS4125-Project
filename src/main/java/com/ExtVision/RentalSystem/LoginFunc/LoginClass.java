@@ -85,8 +85,28 @@ public class LoginClass{
     private void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    public void saveCustomer(CustomerClass customer) {
-        customerRepository.save(customer);
+
+    // add user to list of accounts
+    public static void addAccount(LoginClass user) {
+        accounts.add(user.accountId);
+    }
+
+    // remove user from list of accounts
+    public static void removeAccount(int accountID) {
+        accounts.remove(accounts.get(accountID));
+    }
+
+    // get size of arraylist to generate accountId for users
+    public static int getAccountListLength() {
+        return accounts.size();
+    }
+
+    public static LoginClass getAccount(int accountId) {
+        return null;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
 

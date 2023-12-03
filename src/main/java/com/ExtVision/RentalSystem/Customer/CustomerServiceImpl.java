@@ -43,6 +43,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public void setCanRent(String customerID) {
+        CustomerClass customer = customerMap.get(customerID);
+        customer.setActive(true);
+    }
+
+    @Override
     public void returnItem(String customerID, int itemID) {
         CustomerClass customer = customerMap.get(customerID);
         if (customer != null && customer.getCurrentRentals().contains(itemID)) {
