@@ -42,6 +42,6 @@ public interface CustomerClassInterface {
     //
     // Updates the customer's profile information
     // This method might need to be inside the clerk class but I added here so Customer objects aren't set 
-    void updateProfile(String name, String address, String phone, String email);
+    void updateProfile(String name, String address, double phone, String email);
 
 }
