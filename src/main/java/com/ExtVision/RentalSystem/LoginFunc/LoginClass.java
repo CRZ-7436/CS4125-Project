@@ -12,11 +12,11 @@ import static com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.getLoginSta
 
 @Service
 public abstract class LoginClass {
+    private Map<String, String> loginCredentials;
     private static List<Integer> accounts;
     private int accountId;
-    private Map<String, String> loginCredentials;
-    private boolean admin;
-    private boolean active;
+    protected boolean admin;
+    protected boolean active;
     
     public LoginClass() {
         loginCredentials = new HashMap<>();
@@ -89,6 +89,14 @@ public abstract class LoginClass {
     // get size of arraylist to generate accountId for users
     public static int getAccountListLength() {
         return accounts.size();
+    }
+
+    public static LoginClass getAccount(int accountId) {
+        return null;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
 
