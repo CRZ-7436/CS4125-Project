@@ -40,6 +40,14 @@
             <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
             <!-- Edit link -->
             <a th:href="@{/dvdgames/edit/{id}(id=${dvdGame.itemID})}">Edit</a>
+            <!-- rent button-->
+            <form th:action="@{/dvdgames/rent/{id}(id=${dvdGame.itemID})}" method="post">
+                <input type="submit" value="Rent" />
+            </form>
+            <!-- Delete button -->
+            <form th:action="@{/dvdgames/delete/{id}(id=${dvdGame.itemID})}" method="post">
+                <input type="submit" value="Delete" />
+            </form>
         </div>
     </div>
 
@@ -51,6 +59,14 @@
             <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
             <!-- Edit link -->
             <a th:href="@{/dvdgames/edit/{id}(id=${dvdGame.itemID})}">Edit</a>
+            <!-- return button-->
+            <form th:action="@{/dvdgames/return/{id}(id=${dvdGame.itemID})}" method="post">
+                <input type="submit" value="Return" />
+            </form>
+            <!-- Delete button -->
+            <form th:action="@{/dvdgames/delete/{id}(id=${dvdGame.itemID})}" method="post">
+                <input type="submit" value="Delete" />
+            </form>
         </div>
     </div>
 </body>

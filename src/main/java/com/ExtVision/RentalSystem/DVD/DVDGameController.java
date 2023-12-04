@@ -44,19 +44,19 @@ public class DVDGameController implements DVDGameObserver {
         return "redirect:/dvdgames";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteDVDGame(@PathVariable Integer id) {
         dvdGameService.delete(id);
         return "redirect:/dvdgames";
     }
 
-    @GetMapping("/rent/{id}")
+    @PostMapping("/rent/{id}")
     public String rentDVDGame(@PathVariable Integer id) {
         dvdGameService.rentDVDGame(id);
         return "redirect:/dvdgames";
     }
 
-    @GetMapping("/return/{id}")
+    @PostMapping("/return/{id}")
     public String returnDVDGame(@PathVariable Integer id) {
         dvdGameService.returnDVDGame(id);
         return "redirect:/dvdgames";

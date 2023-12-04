@@ -2,6 +2,7 @@ package com.ExtVision.RentalSystem.Customer;
 
 public interface CustomerService {
     boolean canRent(String customerID);
+    void setCanRent(String customerID);
     void rentItem(String customerID, int itemID);
     void returnItem(String customerID, int itemID);
     void payFees(String customerID, float amount);
