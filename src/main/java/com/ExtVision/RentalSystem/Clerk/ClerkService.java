@@ -23,11 +23,11 @@ public class ClerkService {
 
     public void setCanRent(CustomerClass customer) {
         //make states for customer class
-        customerService.setCanRent(String.valueOf(customer.getaccountId()));
+        customerService.setCanRent(customer.getaccountId());
     }
 
     public CustomerClass getCustomerDetails(int customerID) {
-        return customerService.getCustomerDetails(String.valueOf(customerID));
+        return customerService.getCustomerDetails(customerID);
     }
 
     public void updateCustomerProfile(CustomerClass customer, String name, String address, int phoneNum, String email) {
@@ -66,8 +66,8 @@ public class ClerkService {
     @Transactional
     public void processRental(CustomerClass cust, DVDGame disc) {
         try {
-            if (disc.getState() == disc.getState()) {
-                
+            if (disc.getState().toString() == "AVAILABLE") {
+                customerService.rentItem(cust.getaccountId(), disc.getItemID());
             }
             else {
                 System.out.println("You can't rent any DVDs!!!");
@@ -83,7 +83,9 @@ public class ClerkService {
     @Transactional
     public void processReturn(CustomerClass cust, DVDGame disc) {
         try {
-            
+            if (disc.getState().toString() == "RENTED") {
+                customerService.returnItem(cust.getaccountId(), disc.getItemID());
+            }
         }
         catch (Exception e) {
             System.out.println("ERROR: Couldn't return DVDGame");

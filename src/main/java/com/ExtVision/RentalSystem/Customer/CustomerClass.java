@@ -36,7 +36,7 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
     public CustomerClass() {
 
     }
-    public CustomerClass(Integer accountId, String name, String address, double phoneNum, String email){
+    public CustomerClass(int accountId, String name, String address, double phoneNum, String email){
         this.accountId = accountId;
         this.name = name;
         this.address = address;
@@ -61,7 +61,7 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
     // Returns the customer ID
     
     @Override
-    public Integer getaccountId() {
+    public int getaccountId() {
         return accountId;
     }
 
@@ -120,7 +120,7 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
     // Foundation of the Mutator methods, this is just some basic values is not completed yet 
     
     @Override
-    public void setaccountId(Integer accountId){
+    public void setaccountId(int accountId){
         this.accountId = accountId;
     }
     

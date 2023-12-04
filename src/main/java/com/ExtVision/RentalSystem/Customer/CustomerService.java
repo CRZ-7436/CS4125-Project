@@ -1,11 +1,11 @@
 package com.ExtVision.RentalSystem.Customer;
 
 public interface CustomerService {
-    boolean canRent(String customerID);
-    void setCanRent(String customerID);
-    void rentItem(String customerID, int itemID);
-    void returnItem(String customerID, int itemID);
-    void payFees(String customerID, float amount);
-    CustomerClass getCustomerDetails(String customerID);
-    void updateCustomerProfile(String customerID, String name, String address, double phoneNum, String email);
+    boolean canRent(int customerID);
+    void setCanRent(int customerID);
+    void rentItem(int customerID, int itemID);
+    void returnItem(int customerID, int itemID);
+    void payFees(int customerID, float amount);
+    CustomerClass getCustomerDetails(int accountId);
+    void updateCustomerProfile(int accountId, String name, String address, double phoneNum, String email);
 }

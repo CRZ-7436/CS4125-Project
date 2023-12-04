@@ -26,6 +26,7 @@ public class LoginClass{
 
     @Autowired
     private CustomerRepository customerRepository;
+    private static AccountRepository accountRepo;
     
     public LoginClass() {
         this.loginCredentials = new HashMap<>();
@@ -99,7 +100,7 @@ public class LoginClass{
     }
 
     // add user to list of accounts
-    public static void addAccount(LoginClass user) {
+    public static void addAccount(Account user) {
         accounts.add(user.accountId);
     }
 

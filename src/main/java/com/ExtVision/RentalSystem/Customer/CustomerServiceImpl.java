@@ -16,7 +16,7 @@ import com.ExtVision.RentalSystem.DVD.DVDGameObserver;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    private Map<String, CustomerClass> customerMap = new HashMap<>();
+    private Map<Integer, CustomerClass> customerMap = new HashMap<>();
     private final CustomerRepository customerRepository;
     private final List<CustomerObserver> observers = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean canRent(String accountId) {
+    public boolean canRent(int accountId) {
         // Customer can rent if account is active and balance is not negative
         // This is simply to be used for checks and to stop weird things like negative balances renting etc.
         
@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void rentItem(String accountId, int itemID) {
+    public void rentItem(int accountId, int itemID) {
         CustomerClass customer = customerMap.get(accountId);
         if (customer != null && canRent(accountId)) {
             customer.getCurrentRentals().add(itemID);
@@ -43,13 +43,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void setCanRent(String accountId) {
+    public void setCanRent(int accountId) {
         CustomerClass customer = customerMap.get(accountId);
         customer.setActive(true);
     }
 
     @Override
-    public void returnItem(String accountId, int itemID) {
+    public void returnItem(int accountId, int itemID) {
         CustomerClass customer = customerMap.get(accountId);
         if (customer != null && customer.getCurrentRentals().contains(itemID)) {
             customer.getCurrentRentals().remove(itemID);
@@ -66,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void payFees(String accountId, float amount) {
+    public void payFees(int accountId, float amount) {
         CustomerClass customer = customerMap.get(accountId);
         if (customer != null && amount > 0) {
             customer.setBalance(customer.getBalance() - amount);
@@ -74,12 +74,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerClass getCustomerDetails(String accountId) {
+    public CustomerClass getCustomerDetails(int accountId) {
         return customerMap.get(accountId);
     }
 
     @Transactional
-    public void updateCustomerProfile(String accountId, String name, String address, double phoneNum, String email) {
+    public void updateCustomerProfile(int accountId, String name, String address, double phoneNum, String email) {
         CustomerClass customer = customerMap.get(accountId);
         if (customer != null) {
             customer.setName(name);
@@ -102,7 +102,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
 
-    public CustomerClass findById(Integer customerID) {
+    public CustomerClass findById(int customerID) {
         // Find and return customer by ID
         return customerRepository.findById(customerID).orElse(null);
 
@@ -126,7 +126,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    public void delete(Integer customerID) {
+    public void delete(int customerID) {
         Optional<CustomerClass> customerlocal = customerRepository.findById(customerID);
         customerlocal.ifPresent(customer -> {
             customerRepository.deleteById(customerID);

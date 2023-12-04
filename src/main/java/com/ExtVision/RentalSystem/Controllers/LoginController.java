@@ -89,7 +89,7 @@ public class LoginController {
 public String addOrUpdateCustomer(@ModelAttribute CustomerClass customer, RedirectAttributes redirectAttributes) {
     try {
         if (customer != null) {
-            if (customer.getaccountId() != null && customer.getaccountId() > 0) {
+            if (customer.getaccountId() != 0 && customer.getaccountId() > 0) {
                 // Update existing customer
                 customerServiceImpl.updateCustomer(customer);
                 redirectAttributes.addFlashAttribute("message", "Customer updated successfully.");
