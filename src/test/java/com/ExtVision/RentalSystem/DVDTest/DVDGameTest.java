@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -69,5 +70,28 @@ class DVDGameTest {
         assertEquals(availableState, dvdGame.getState());
     }
 
-    // Additional tests can be added for other methods and scenarios
+    @Test
+    void testCreateDVDGame() {
+        DVDGame dvdGame = new DVDGame(1, "Test Game", "Action", stateFactory);
+
+        assertNotNull(dvdGame);
+        assertEquals(1, dvdGame.getItemID());
+        assertEquals("Test Game", dvdGame.getTitle());
+        assertEquals("Action", dvdGame.getGenre());
+        assertNotNull(dvdGame.getState());
+        assertEquals("AVAILABLE", dvdGame.getStateIdentifier());
+    }
+
+    @Test
+    void testEditDVDGame() {
+        DVDGame dvdGame = new DVDGame(1, "Original Title", "Action", stateFactory);
+
+        dvdGame.setTitle("New Title");
+        dvdGame.setGenre("Adventure");
+
+        assertEquals("New Title", dvdGame.getTitle());
+        assertEquals("Adventure", dvdGame.getGenre());
+    }
+
+    // Additional tests to be be added for other methods and scenarios
 }
