@@ -184,9 +184,9 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
 }
     
     //observer method
-    /* 
+/*  
     @Override
-    public void update(Observer observer, int itemID, State state) {
+    public void update(CustomerObserver observer, int itemID, State state) {
         if (currentRentals.contains(itemID)) {
             try {
                 //add endpoint for returning success message
@@ -196,5 +196,5 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
             }
         }
     }
-}
+
 */

@@ -9,7 +9,11 @@ public class LoginStateFactory {
         LOGGED_OUT,
         LOGIN_FAILED,
         PASSWORD_RESET_SUCCESSFUL,
-        PASSWORD_RESET_FAILED
+        PASSWORD_RESET_FAILED;
+
+        public String getMessage(LoginState state) {
+            return getLoginStateMessage(state);
+        }
     }
 
     // Method to get a message based on the login state

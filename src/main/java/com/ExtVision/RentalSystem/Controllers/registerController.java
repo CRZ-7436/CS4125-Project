@@ -5,7 +5,7 @@ import com.ExtVision.RentalSystem.Customer.CustomerFactory;
 import com.ExtVision.RentalSystem.Customer.CustomerService;
 import com.ExtVision.RentalSystem.Customer.CustomerServiceImpl;
 import com.ExtVision.RentalSystem.DVD.DVDGame;
-import com.ExtVision.RentalSystem.LoginFunc.LoginClass;
+import com.ExtVision.RentalSystem.LoginFunc.LoginClassInterface;
 import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class LoginController {
+public class registerController {
 
-    private final LoginClass loginClass;
+    private final LoginClassInterface loginClass;
     @Autowired
     private CustomerServiceImpl customerServiceImpl;
 
-    public LoginController(LoginClass loginClass) {
+    public registerController(LoginClassInterface loginClass) {
         this.loginClass = loginClass;
     }
 
@@ -29,15 +29,7 @@ public class LoginController {
     public String showLoginForm() {
         return "login"; // Name of the login HTML page
     }
-/* 
-    @GetMapping("/listCustomers")
-    public String listCustomers(Model model) {
-        model.addAttribute("availableCustomers", customerServiceImpl.findActiveCustomers());
-        model.addAttribute("InactiveCustomers", customerServiceImpl.findInActiveCustomers());
-        model.addAttribute("customer", new CustomerClass());
-        return "/register";
-    }
-*/
+
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
         String loginResult = loginClass.login(username, password);
@@ -128,6 +120,4 @@ public String addOrUpdateCustomer(@ModelAttribute CustomerClass customer, Redire
         }
     }
 
-
-    // Additional methods and logic...
 }
