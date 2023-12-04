@@ -18,7 +18,7 @@
     <div th:replace="header :: header"></div>
     <h1>DVD Games Management</h1>
 
-    <!-- Form for creating or editing a DVDGame -->
+
     <form th:action="@{/dvdgames/add}" th:object="${dvdGame}" method="post">
         <input type="hidden" th:field="*{itemID}" />
         <label for="title">Title:</label>
@@ -27,43 +27,41 @@
         <label for="genre">Genre:</label>
         <input type="text" th:field="*{genre}" placeholder="Genre" required>
 
-        <!-- Add other fields as necessary -->
 
         <button type="submit" class="submitbutton">Submit</button>
     </form>
 
-    <!-- Displaying Available DVD Games -->
+
     <h2>Available DVD Games</h2>
     <div th:each="dvdGame : ${availableDvdGames}">
         <div>
             <p>Title: <span th:text="${dvdGame.title}"></span></p>
             <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
-            <!-- Edit link -->
+            <!-- Edit -->
             <a th:href="@{/dvdgames/edit/{id}(id=${dvdGame.itemID})}">Edit</a>
-            <!-- rent button-->
+            <!-- rent -->
             <form th:action="@{/dvdgames/rent/{id}(id=${dvdGame.itemID})}" method="post">
                 <input type="submit" value="Rent" />
             </form>
-            <!-- Delete button -->
+            <!-- Delete -->
             <form th:action="@{/dvdgames/delete/{id}(id=${dvdGame.itemID})}" method="post">
                 <input type="submit" value="Delete" />
             </form>
         </div>
     </div>
 
-    <!-- Displaying Rented DVD Games -->
     <h2>Rented DVD Games</h2>
     <div th:each="dvdGame : ${rentedDvdGames}">
         <div>
             <p>Title: <span th:text="${dvdGame.title}"></span></p>
             <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
-            <!-- Edit link -->
+            <!-- Edit -->
             <a th:href="@{/dvdgames/edit/{id}(id=${dvdGame.itemID})}">Edit</a>
-            <!-- return button-->
+            <!-- return-->
             <form th:action="@{/dvdgames/return/{id}(id=${dvdGame.itemID})}" method="post">
                 <input type="submit" value="Return" />
             </form>
-            <!-- Delete button -->
+            <!-- Delete -->
             <form th:action="@{/dvdgames/delete/{id}(id=${dvdGame.itemID})}" method="post">
                 <input type="submit" value="Delete" />
             </form>
