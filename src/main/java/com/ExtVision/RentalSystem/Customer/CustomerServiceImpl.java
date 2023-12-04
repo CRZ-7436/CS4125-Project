@@ -60,9 +60,11 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerClass> findActiveCustomers() {
         return customerRepository.findByAccountStatus("ACTIVE");
     }
+
     public List<CustomerClass> findInActiveCustomers() {
         return customerRepository.findByAccountStatus("INACTIVE");
     }
+
     @Override
     public void payFees(String customerID, float amount) {
         CustomerClass customer = customerMap.get(customerID);
@@ -94,7 +96,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer != null) {
             existingCustomerClass.setName(customer.getName());
             existingCustomerClass.setAddress(customer.getAddress());
-            existingCustomerClass.setphoneNum(customer.getPhone());
+            existingCustomerClass.setphoneNum(customer.getPhoneNum());
             existingCustomerClass.setEmail(customer.getEmail());
         }
     }

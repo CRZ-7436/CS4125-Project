@@ -45,7 +45,7 @@ public class ClerkService {
         //implement when DVDgame has a db to store DVDgames
     }
 
-    public void addCustomer(int customerID, String name, String address, String phone, String email) {
+    public void addCustomer(Integer customerID, String name, String address, double phone, String email) {
         try {
             CustomerFactory.createCustomer(customerID, name, address, phone, email);
         } catch (Exception e) {

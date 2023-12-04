@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LoginController {
@@ -28,7 +29,7 @@ public class LoginController {
     public String showLoginForm() {
         return "login"; // Name of the login HTML page
     }
-
+/* 
     @GetMapping("/listCustomers")
     public String listCustomers(Model model) {
         model.addAttribute("availableCustomers", customerServiceImpl.findActiveCustomers());
@@ -36,7 +37,7 @@ public class LoginController {
         model.addAttribute("customer", new CustomerClass());
         return "/register";
     }
-
+*/
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
         String loginResult = loginClass.login(username, password);
@@ -50,14 +51,14 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/register")
+    @GetMapping("/registerCustomer")
     public String showRegistrationForm(Model model) {
         model.addAttribute("customer", new CustomerClass()); // Assuming CustomerClass is your model class
         return "register";
     }
 
 
-    @PostMapping("/register")
+    @PostMapping("/registerCustomer/register")
     public String register(@RequestParam String username, 
                        @RequestParam String password,
                        @RequestParam String address,
@@ -84,14 +85,29 @@ public class LoginController {
 }
 
     @PostMapping("/registerCustomer/add")
-    public String addOrUpdateCustomer(@ModelAttribute CustomerClass customer) {
-        if (customer.getCustomerID() != null && customer.getCustomerID() > 0) {
-            customerServiceImpl.updateCustomer(customer);
+public String addOrUpdateCustomer(@ModelAttribute CustomerClass customer, RedirectAttributes redirectAttributes) {
+    try {
+        if (customer != null) {
+            if (customer.getCustomerID() != null && customer.getCustomerID() > 0) {
+                // Update existing customer
+                customerServiceImpl.updateCustomer(customer);
+                redirectAttributes.addFlashAttribute("message", "Customer updated successfully.");
+            } else {
+                // Save new customer
+                customerServiceImpl.save(customer);
+                redirectAttributes.addFlashAttribute("message", "Customer added successfully.");
+            }
         } else {
-            customerServiceImpl.save(customer);
+            redirectAttributes.addFlashAttribute("error", "Customer data is not valid.");
+            return "redirect:/registerCustomer";
         }
-        return "redirect:/index";
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("error", "An error occurred: " + e.getMessage());
+        return "redirect:/registerCustomer";
     }
+    return "redirect:/index";
+}
+
     @PostMapping("/logout")
     public String logout(@RequestParam String username) {
         loginClass.logout(username);

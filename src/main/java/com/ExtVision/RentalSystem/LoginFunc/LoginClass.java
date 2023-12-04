@@ -19,14 +19,21 @@ public class LoginClass{
     private static List<Integer> accounts = new ArrayList<>();;
     private int accountId;
     private Map<String, String> loginCredentials;
-    private boolean admin;
-    private boolean active;
+    public boolean admin;
+    public boolean active;
+    public String username;
+    public String password;
 
     @Autowired
     private CustomerRepository customerRepository;
     
     public LoginClass() {
-        loginCredentials = new HashMap<>();
+
+    }
+
+    
+    public LoginClass(String username, String password, boolean active2) {
+        this.loginCredentials = new HashMap<>();
     }
 
     public String registerAccount(String username, String password, boolean admin) {
@@ -107,6 +114,20 @@ public class LoginClass{
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username){
+        this.username = username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setpassword(String password){
+        this.password = password;
     }
 }
 

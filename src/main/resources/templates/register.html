@@ -5,9 +5,9 @@
 </head>
 <body>
     <h2>Register</h2>
-    <form th:action="@{/registerCustomer/add}" th:object="${customer}" method="post">
-        <input type="hidden" th:field="*{customerId}" />
-        <label for="name">Title:</label>
+    <form th:action="@{/registerCustomer/register}" th:object="${customer}" method="post">
+        <input type="hidden" th:field="*{customerID}" />
+        <label for="name">name:</label>
         <input type="text" th:field="*{name}" placeholder="name" required>
 
         
@@ -15,18 +15,20 @@
         <input type="text" th:field="*{address}" placeholder="address" required>
 
         
-        <label for="phoneNum">Title:</label>
+        <label for="phoneNum">phoneNum:</label>
         <input type="text" th:field="*{phoneNum}" placeholder="phoneNum" required>
 
         
-        <label for="email">Title:</label>
+        <label for="email">email:</label>
         <input type="text" th:field="*{email}" placeholder="email" required>
    
-        <label for="password">Title:</label>
-        <input type="text" th:field="*{password}" placeholder="password" required>
-
+        <label for="username">username:</label>
+        <input type="text" th:field="*{username}" placeholder="password" required>
         
-        <label for="admin">Title:</label>
+        <label for="password">password:</label>
+        <input type="text" th:field="*{password}" placeholder="password" required>
+        
+        <label for="admin">admin:</label>
         <input type="checkbox" name="admin" value="true"> Admin<br>
         <button type="submit">Register</button>
     </form>

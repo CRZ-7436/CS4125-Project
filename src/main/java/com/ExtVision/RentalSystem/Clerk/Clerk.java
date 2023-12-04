@@ -22,7 +22,7 @@ public class Clerk extends LoginClass implements Observer {
         super(username, password, active);
         this.admin = admin;
         this.accountId = getAccountListLength();
-        registerAccount(username, password);
+        registerAccount(username, password, admin);
     }
 
     // class to change a clerk's password (by an admin)

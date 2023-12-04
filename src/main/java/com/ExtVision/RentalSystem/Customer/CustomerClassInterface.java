@@ -11,11 +11,13 @@ public interface CustomerClassInterface {
 
     String getAddress();
 
-    double getPhone();
+    double getPhoneNum();
 
     String getEmail();
 
     String getAccountStatus();
+
+    public String getUsername();
 
     List<Integer> getCurrentRentals();
 
@@ -23,7 +25,7 @@ public interface CustomerClassInterface {
 
     // Updates the account status
     void setAccountStatus(String accountStatus);
-
+    void setUsername(String username);
     // Updates the balance
     void setBalance(float balance);
 

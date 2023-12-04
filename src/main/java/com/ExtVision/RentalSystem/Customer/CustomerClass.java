@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.hibernate.query.sqm.StrictJpaComplianceViolation;
 
+import com.ExtVision.RentalSystem.LoginFunc.LoginClass;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +18,7 @@ import jakarta.persistence.Id;
 
 // This is the main class for Customer in the rental system
 @Entity
-public class CustomerClass implements CustomerClassInterface {
+public class CustomerClass extends LoginClass implements CustomerClassInterface {
     // Attributes of the customer
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +64,7 @@ public class CustomerClass implements CustomerClassInterface {
     public Integer getCustomerID() {
         return customerID;
     }
+
     
     // Returns the customer's name
     
@@ -80,7 +83,7 @@ public class CustomerClass implements CustomerClassInterface {
     // Returns the customer's phone number
   
     @Override
-    public double getPhone() {
+    public double getPhoneNum() {
         return phoneNum;
     }
     
@@ -117,8 +120,8 @@ public class CustomerClass implements CustomerClassInterface {
     // Foundation of the Mutator methods, this is just some basic values is not completed yet 
     
     @Override
-    public void setCustomerID(Integer customerId){
-        this.customerID = customerId;
+    public void setCustomerID(Integer customerID){
+        this.customerID = customerID;
     }
     
     // Updates the account status
@@ -174,6 +177,9 @@ public class CustomerClass implements CustomerClassInterface {
         this.address = address;
         this.phoneNum = phone;
         this.email = email;
+    }
+    public void setActive(boolean b) {
+        this.active = b;
     }
 }
     
