@@ -26,31 +26,31 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean canRent(String customerID) {
+    public boolean canRent(String accountId) {
         // Customer can rent if account is active and balance is not negative
         // This is simply to be used for checks and to stop weird things like negative balances renting etc.
         
-        CustomerClass customer = customerMap.get(customerID);
+        CustomerClass customer = customerMap.get(accountId);
         return customer != null && "Active".equals(customer.getAccountStatus()) && customer.getBalance() >= 0;
     }
 
     @Override
-    public void rentItem(String customerID, int itemID) {
-        CustomerClass customer = customerMap.get(customerID);
-        if (customer != null && canRent(customerID)) {
+    public void rentItem(String accountId, int itemID) {
+        CustomerClass customer = customerMap.get(accountId);
+        if (customer != null && canRent(accountId)) {
             customer.getCurrentRentals().add(itemID);
         }
     }
 
     @Override
-    public void setCanRent(String customerID) {
-        CustomerClass customer = customerMap.get(customerID);
+    public void setCanRent(String accountId) {
+        CustomerClass customer = customerMap.get(accountId);
         customer.setActive(true);
     }
 
     @Override
-    public void returnItem(String customerID, int itemID) {
-        CustomerClass customer = customerMap.get(customerID);
+    public void returnItem(String accountId, int itemID) {
+        CustomerClass customer = customerMap.get(accountId);
         if (customer != null && customer.getCurrentRentals().contains(itemID)) {
             customer.getCurrentRentals().remove(itemID);
         }
@@ -66,21 +66,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void payFees(String customerID, float amount) {
-        CustomerClass customer = customerMap.get(customerID);
+    public void payFees(String accountId, float amount) {
+        CustomerClass customer = customerMap.get(accountId);
         if (customer != null && amount > 0) {
             customer.setBalance(customer.getBalance() - amount);
         }
     }
 
     @Override
-    public CustomerClass getCustomerDetails(String customerID) {
-        return customerMap.get(customerID);
+    public CustomerClass getCustomerDetails(String accountId) {
+        return customerMap.get(accountId);
     }
 
     @Transactional
-    public void updateCustomerProfile(String customerID, String name, String address, double phoneNum, String email) {
-        CustomerClass customer = customerMap.get(customerID);
+    public void updateCustomerProfile(String accountId, String name, String address, double phoneNum, String email) {
+        CustomerClass customer = customerMap.get(accountId);
         if (customer != null) {
             customer.setName(name);
             customer.setAddress(address);
@@ -90,8 +90,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
     @Transactional
     public void updateCustomer(CustomerClass customer) {
-        CustomerClass existingCustomerClass = customerRepository.findById(customer.getCustomerID())
-        .orElseThrow(() -> new RuntimeException("DVDGame not found with ID: " + customer.getCustomerID()));
+        CustomerClass existingCustomerClass = customerRepository.findById(customer.getaccountId())
+        .orElseThrow(() -> new RuntimeException("DVDGame not found with ID: " + customer.getaccountId()));
 
         if (customer != null) {
             existingCustomerClass.setName(customer.getName());
@@ -102,14 +102,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
 
-    public CustomerClass findById(int customerID) {
+    public CustomerClass findById(Integer customerID) {
         // Find and return customer by ID
         return customerRepository.findById(customerID).orElse(null);
 
     }
     @Transactional
     public void save(CustomerClass customerlocal) {
-        if (customerlocal.getCustomerID() == 0) {
+        if (customerlocal.getaccountId() == 0) {
             customerlocal.setAccountStatus("AVAILABLE");
              
         }

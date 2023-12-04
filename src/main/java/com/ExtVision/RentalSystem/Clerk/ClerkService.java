@@ -23,7 +23,7 @@ public class ClerkService {
 
     public void setCanRent(CustomerClass customer) {
         //make states for customer class
-        customerService.setCanRent(String.valueOf(customer.getCustomerID()));
+        customerService.setCanRent(String.valueOf(customer.getaccountId()));
     }
 
     public CustomerClass getCustomerDetails(int customerID) {

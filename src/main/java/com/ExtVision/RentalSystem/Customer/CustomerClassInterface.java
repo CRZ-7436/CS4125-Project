@@ -5,7 +5,7 @@ import java.util.List;
 public interface CustomerClassInterface {
 
     // getters and setters
-    Integer getCustomerID();
+    Integer getaccountId();
 
     String getName();
 
@@ -29,7 +29,7 @@ public interface CustomerClassInterface {
     // Updates the balance
     void setBalance(float balance);
 
-    void setCustomerID(Integer customerId);
+    void setaccountId(Integer accountId);
 
     void setName(String name);
 

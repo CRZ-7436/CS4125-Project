@@ -17,7 +17,7 @@ import static com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.getLoginSta
 @Service
 public class LoginClass{
     private static List<Integer> accounts = new ArrayList<>();;
-    private int accountId;
+    public Integer accountId;
     private Map<String, String> loginCredentials;
     public boolean admin;
     public boolean active;
@@ -28,12 +28,17 @@ public class LoginClass{
     private CustomerRepository customerRepository;
     
     public LoginClass() {
-
+        this.loginCredentials = new HashMap<>();
     }
 
     
     public LoginClass(String username, String password, boolean active2) {
         this.loginCredentials = new HashMap<>();
+        this.loginCredentials.put(username, encryptPassword(password)); // Assign username and encrypted password
+        this.username = username; // Set username
+        this.password = password; // Set password
+        accountId = accounts.size();
+        accounts.add(accountId);
     }
 
     public String registerAccount(String username, String password, boolean admin) {

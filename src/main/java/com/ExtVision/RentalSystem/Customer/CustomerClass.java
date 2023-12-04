@@ -22,7 +22,7 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
     // Attributes of the customer
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer customerID;
+    
     private String name;
     private String address;
     private double phoneNum;
@@ -36,8 +36,8 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
     public CustomerClass() {
 
     }
-    public CustomerClass(Integer customerID, String name, String address, double phoneNum, String email){
-        this.customerID = customerID;
+    public CustomerClass(Integer accountId, String name, String address, double phoneNum, String email){
+        this.accountId = accountId;
         this.name = name;
         this.address = address;
         this.phoneNum = phoneNum;
@@ -61,8 +61,8 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
     // Returns the customer ID
     
     @Override
-    public Integer getCustomerID() {
-        return customerID;
+    public Integer getaccountId() {
+        return accountId;
     }
 
     
@@ -120,8 +120,8 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
     // Foundation of the Mutator methods, this is just some basic values is not completed yet 
     
     @Override
-    public void setCustomerID(Integer customerID){
-        this.customerID = customerID;
+    public void setaccountId(Integer accountId){
+        this.accountId = accountId;
     }
     
     // Updates the account status

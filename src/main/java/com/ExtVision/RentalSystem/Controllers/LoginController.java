@@ -53,13 +53,16 @@ public class LoginController {
 
     @GetMapping("/registerCustomer")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("customer", new CustomerClass()); // Assuming CustomerClass is your model class
+        if (!model.containsAttribute("customer")) {
+            model.addAttribute("customer", new CustomerClass());
+        }
         return "register";
     }
 
 
     @PostMapping("/registerCustomer/register")
-    public String register(@RequestParam String username, 
+    public String register(@RequestParam String username,
+                        @RequestParam Integer accountID, 
                        @RequestParam String password,
                        @RequestParam String address,
                        @RequestParam double phoneNum,
@@ -68,13 +71,11 @@ public class LoginController {
                        Model model) {
     // Existing logic to register account with username and password
         String registerResult = loginClass.registerAccount(username, password, admin);
-
+                        Integer accountId = loginClass.generateCustomerID();
+                        CustomerClass newCustomer = CustomerFactory.createCustomer(accountId, username, address,  phoneNum,  email);
         if (registerResult.equals(LoginState.LOGGED_IN)) {
             // Create a CustomerClass object
             // Implement this method to generate unique IDs
-            Integer customerID = loginClass.generateCustomerID();
-            CustomerClass newCustomer = CustomerFactory.createCustomer(customerID, username, address,  phoneNum,  email);
-
             customerServiceImpl.save(newCustomer);
 
             return "redirect:/index";
@@ -88,7 +89,7 @@ public class LoginController {
 public String addOrUpdateCustomer(@ModelAttribute CustomerClass customer, RedirectAttributes redirectAttributes) {
     try {
         if (customer != null) {
-            if (customer.getCustomerID() != null && customer.getCustomerID() > 0) {
+            if (customer.getaccountId() != null && customer.getaccountId() > 0) {
                 // Update existing customer
                 customerServiceImpl.updateCustomer(customer);
                 redirectAttributes.addFlashAttribute("message", "Customer updated successfully.");

@@ -6,7 +6,7 @@
 <body>
     <h2>Register</h2>
     <form th:action="@{/registerCustomer/register}" th:object="${customer}" method="post">
-        <input type="hidden" th:field="*{customerID}" />
+        <input type="hidden" th:field="*{accountId}" />
         <label for="name">name:</label>
         <input type="text" th:field="*{name}" placeholder="name" required>
 
