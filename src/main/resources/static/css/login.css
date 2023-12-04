@@ -1,0 +1,93 @@
+/* login.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000130;
+    color: #fff;
+    margin: 0;
+    padding: 0;/*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;*/
+}
+
+.login-container {
+    background-color: #1a1a4b;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.submit-button {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.submit-button:hover {
+    background-color: #333;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .login-container {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .submit-button {
+        padding: 8px;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .login-container {
+        max-width: 70%;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .login-container {
+        max-width: 400px;
+    }
+}
