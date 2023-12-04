@@ -46,19 +46,6 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
         
     }
 
-    // Business Logic Methods
-    
-    // Method to handle renting an item
-    
-    // Method to handle returning an item this is being implemented one at a time here until rent logic is complete
-    // Method To allow bulk returns won't be implemented yet as I don't want to lock myself to a template just yet
-
-    // Accessor methods (getters) for each attribute
-
-    // Simple enough just used for accessing stored member variables.
-    // Not sure if my commenting here is excessive or not but added it for clarity in presentation
-    
-    // Returns the customer ID
     
     @Override
     public Integer getaccountId() {
@@ -155,19 +142,17 @@ public class CustomerClass extends LoginClass implements CustomerClassInterface 
     
     // Validation methods
     
-    // More validation checks need to be added currently this is the only one just so we can easily create customer classes
-    // They will be added as needed
-    // Validates the email format using a regular format
+
     @Override
     public boolean isValidEmail(String email) {
-        // Simple regex to check email format, can be improved for more stringent checks not prority right now
+
         return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
     }
     
     // Update profile method
     
     // Updates the customer's profile information
-    // This method might need to be inside the clerk class but I added here so Customer objects aren't set 
+
     @Override
     public void updateProfile(String name, String address, double phone, String email) {
         if (!isValidEmail(email)) {
