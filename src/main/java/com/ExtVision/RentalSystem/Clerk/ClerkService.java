@@ -61,7 +61,7 @@ public class ClerkService {
             System.out.println("ERROR: Couldn't remove account");
         }
     }
-
+    
     // process a rental
     @Transactional
     public void processRental(CustomerClass cust, DVDGame disc) {

@@ -11,8 +11,8 @@ public class LoginStateFactory {
         PASSWORD_RESET_SUCCESSFUL,
         PASSWORD_RESET_FAILED;
 
-        public String getMessage(LoginState state) {
-            return getLoginStateMessage(state);
+        public String getMessage() {
+            return null;
         }
     }
 
