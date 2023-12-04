@@ -1,4 +1,4 @@
-package com.ExtVision.RentalSystem.config;
+/*package com.ExtVision.RentalSystem.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,3 +20,4 @@ public class AppConfig {
         return new StateFactoryImpl();
     }
 }
+*/
