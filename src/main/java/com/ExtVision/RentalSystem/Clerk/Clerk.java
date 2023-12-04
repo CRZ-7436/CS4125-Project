@@ -11,18 +11,16 @@ public class Clerk extends LoginClass implements Observer {
 
     // empty contructor that creates an account with default values
     public Clerk () {
-        super();
+        registerAccount("", "", false);
         this.accountId = getAccountListLength();
-        this.admin = false;
         addAccount(this);
     }
 
     // populated constuctor to add fields
     public Clerk (String username, String password, boolean active, boolean admin) {
-        super(username, password, active);
-        this.admin = admin;
-        this.accountId = getAccountListLength();
         registerAccount(username, password, admin);
+        this.accountId = getAccountListLength();
+        addAccount(this);
     }
 
     // class to change a clerk's password (by an admin)
