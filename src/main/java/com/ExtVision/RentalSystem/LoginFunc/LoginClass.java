@@ -24,10 +24,10 @@ public class LoginClass{
     public String username;
     public String password;
 
-    @Autowired
     private CustomerRepository customerRepository;
     private static AccountRepository accountRepo;
     
+    @Autowired
     public LoginClass() {
         this.loginCredentials = new HashMap<>();
     }
