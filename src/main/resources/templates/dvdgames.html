@@ -25,6 +25,7 @@
     <h2>Available DVD Games</h2>
     <div th:each="dvdGame : ${availableDvdGames}">
         <div>
+            <p>Item ID: <span th:text="${dvdGame.itemID}"></span></p>
             <p>Title: <span th:text="${dvdGame.title}"></span></p>
             <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
             <!-- Edit link -->
@@ -44,6 +45,7 @@
     <h2>Rented DVD Games</h2>
     <div th:each="dvdGame : ${rentedDvdGames}">
         <div>
+            <p>Item ID: <span th:text="${dvdGame.itemID}"></span></p>
             <p>Title: <span th:text="${dvdGame.title}"></span></p>
             <p>Genre: <span th:text="${dvdGame.genre}"></span></p>
             <!-- Edit link -->

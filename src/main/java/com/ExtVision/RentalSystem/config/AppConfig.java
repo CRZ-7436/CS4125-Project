@@ -1,4 +1,4 @@
-package com.ExtVision.RentalSystem.config;
+/*package com.ExtVision.RentalSystem.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,4 +19,4 @@ public class AppConfig {
         // This instance will be managed by Spring and can be injected wherever a StateFactory is required.
         return new StateFactoryImpl();
     }
-}
+}*/
