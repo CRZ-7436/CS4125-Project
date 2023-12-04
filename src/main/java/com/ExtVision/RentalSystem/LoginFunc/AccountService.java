@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AccountService {
     private final AccountRepository accountRepo;
 
     @Autowired
     public AccountService(AccountRepository accountRepository) {
-        accountRepo = accountRepository;
+        this.accountRepo = accountRepository;
     }
 
     public List<Account> getAccounts() {
-        return accountRepo.getAccounts();
+        return accountRepo.listAccounts();
     }
 
-    public Account getAccount(Integer accountId) {
+    public Account getAccountById(String accountId) {
         return accountRepo.getAccountById(accountId);
     }
 }

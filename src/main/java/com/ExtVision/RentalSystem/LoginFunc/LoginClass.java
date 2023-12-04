@@ -15,7 +15,7 @@ import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
 import static com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.getLoginStateMessage;
 
 @Service
-public class LoginClass{
+public class LoginClass {
     private static List<Integer> accounts = new ArrayList<>();;
     public Integer accountId;
     private Map<String, String> loginCredentials;
@@ -25,7 +25,6 @@ public class LoginClass{
     public String password;
 
     private CustomerRepository customerRepository;
-    private static AccountRepository accountRepo;
     
     @Autowired
     public LoginClass() {
@@ -100,7 +99,7 @@ public class LoginClass{
     }
 
     // add user to list of accounts
-    public static void addAccount(Account user) {
+    public static void addAccount(LoginClass user) {
         accounts.add(user.accountId);
     }
 

@@ -10,15 +10,15 @@ public class Clerk extends Account implements Observer {
     // empty contructor that creates an account with default values
     public Clerk () {
         super();
-        this.accountId = LoginClass.getAccountListLength();
-        LoginClass.addAccount(this);
+        this.accountId = String.valueOf(LoginClass.getAccountListLength());
+        Account.addAccount(this);
     }
 
     // populated constuctor to add fields
     public Clerk (String username, String password, boolean active, boolean admin) {
         super(username, password, admin);
-        this.accountId = LoginClass.getAccountListLength();
-        LoginClass.addAccount(this);
+        this.accountId = String.valueOf(LoginClass.getAccountListLength());
+        Account.addAccount(this);
     }
 
     // deletes clerk if the clerk invoking the method is an admin
