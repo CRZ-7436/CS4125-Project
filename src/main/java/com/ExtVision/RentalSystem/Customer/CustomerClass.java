@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.hibernate.query.sqm.StrictJpaComplianceViolation;
 
+import com.ExtVision.RentalSystem.LoginFunc.LoginClass;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,11 +18,11 @@ import jakarta.persistence.Id;
 
 // This is the main class for Customer in the rental system
 @Entity
-public class CustomerClass implements CustomerClassInterface {
+public class CustomerClass extends LoginClass implements CustomerClassInterface {
     // Attributes of the customer
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int customerID;
+    
     private String name;
     private String address;
     private double phoneNum;
@@ -31,8 +33,17 @@ public class CustomerClass implements CustomerClassInterface {
     private float balance; // Customer's balance for renting
 
     // Constructor to initialize a Customer object
-    public CustomerClass(int customerID, String name, String address, String phone, String email) {
+    public CustomerClass() {
 
+    }
+    public CustomerClass(Integer accountId, String name, String address, double phoneNum, String email){
+        this.accountId = accountId;
+        this.name = name;
+        this.address = address;
+        this.phoneNum = phoneNum;
+        this.email = email;
+        this.accountStatus = "ACTIVE";
+        
     }
 
     // Business Logic Methods
@@ -50,9 +61,10 @@ public class CustomerClass implements CustomerClassInterface {
     // Returns the customer ID
     
     @Override
-    public int getCustomerID() {
-        return customerID;
+    public Integer getaccountId() {
+        return accountId;
     }
+
     
     // Returns the customer's name
     
@@ -71,7 +83,7 @@ public class CustomerClass implements CustomerClassInterface {
     // Returns the customer's phone number
   
     @Override
-    public double getPhone() {
+    public double getPhoneNum() {
         return phoneNum;
     }
     
@@ -106,7 +118,12 @@ public class CustomerClass implements CustomerClassInterface {
     // Mutator methods (setters) for attributes that should be changeable
     
     // Foundation of the Mutator methods, this is just some basic values is not completed yet 
-
+    
+    @Override
+    public void setaccountId(Integer accountId){
+        this.accountId = accountId;
+    }
+    
     // Updates the account status
     @Override
     public void setAccountStatus(String accountStatus) {
@@ -161,12 +178,15 @@ public class CustomerClass implements CustomerClassInterface {
         this.phoneNum = phone;
         this.email = email;
     }
+    public void setActive(boolean b) {
+        this.active = b;
+    }
 }
     
     //observer method
-    /* 
+/*  
     @Override
-    public void update(Observer observer, int itemID, State state) {
+    public void update(CustomerObserver observer, int itemID, State state) {
         if (currentRentals.contains(itemID)) {
             try {
                 //add endpoint for returning success message
@@ -176,5 +196,5 @@ public class CustomerClass implements CustomerClassInterface {
             }
         }
     }
-}
+
 */

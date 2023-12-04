@@ -9,42 +9,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ExtVision.RentalSystem.CustomerRepository;
-import com.ExtVision.RentalSystem.Customer.CustomerClass;
 import com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.LoginState;
 
 import static com.ExtVision.RentalSystem.LoginFunc.LoginStateFactory.getLoginStateMessage;
 
 @Service
-public class LoginClass{
+public class LoginClass implements LoginClassInterface{
     private static List<Integer> accounts = new ArrayList<>();;
-    private int accountId;
+    public Integer accountId;
     private Map<String, String> loginCredentials;
-    private boolean admin;
-    private boolean active;
+    public boolean admin;
+    public boolean active;
+    public String username;
+    public String password;
 
     @Autowired
     private CustomerRepository customerRepository;
     
     public LoginClass() {
-        loginCredentials = new HashMap<>();
+        this.loginCredentials = new HashMap<>();
     }
 
+    
+    public LoginClass(String username, String password, boolean active2) {
+        this.loginCredentials = new HashMap<>();
+        this.loginCredentials.put(username, encryptPassword(password)); // Assign username and encrypted password
+        this.username = username; // Set username
+        this.password = password; // Set password
+        accountId = accounts.size();
+        accounts.add(accountId);
+    }
+
+    @Override
     public String registerAccount(String username, String password, boolean admin) {
         if (!loginCredentials.containsKey(username)) {
             loginCredentials.put(username, encryptPassword(password));
             accountId = accounts.size();
             accounts.add(accountId);
             this.setAdmin(admin);
-            // Additional logic to add customer to the database or customer management system
             return getLoginStateMessage(LoginState.LOGGED_IN);
         } else {
             return getLoginStateMessage(LoginState.LOGIN_FAILED);
         }
     }
+    @Override
     public int generateCustomerID(){
         return accounts.size();
     }
 
+    @Override
     public String login(String username, String password) {
         if (loginCredentials.containsKey(username) && checkPassword(password, loginCredentials.get(username))) {
             return getLoginStateMessage(LoginState.LOGGED_IN);
@@ -53,11 +66,13 @@ public class LoginClass{
         }
     }
 
+    @Override
     public String logout(String username) {
         // Logic to handle logout, like updating system logs or customer status
         return getLoginStateMessage(LoginState.LOGGED_OUT);
     }
 
+    @Override
     public String resetPassword(String username, String oldPassword, String newPassword) {
         if (loginCredentials.containsKey(username) && checkPassword(oldPassword, loginCredentials.get(username))) {
             loginCredentials.put(username, encryptPassword(newPassword));
@@ -66,7 +81,7 @@ public class LoginClass{
             return getLoginStateMessage(LoginState.PASSWORD_RESET_FAILED);
         }
     }
-
+    // Never got a chance to implemented the encryption of passwords left as placeholders
     private String encryptPassword(String password) {
         // Password encryption logic should be implemented here
         return password; // This is a placeholder
@@ -85,8 +100,47 @@ public class LoginClass{
     private void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    public void saveCustomer(CustomerClass customer) {
-        customerRepository.save(customer);
+
+    // add user to list of accounts
+    public static void addAccount(LoginClass user) {
+        accounts.add(user.accountId);
+    }
+
+    // remove user from list of accounts
+    public static void removeAccount(int accountID) {
+        accounts.remove(accounts.get(accountID));
+    }
+
+    // get size of arraylist to generate accountId for users
+    public static int getAccountListLength() {
+        return accounts.size();
+    }
+
+    public static LoginClassInterface getAccount(int accountId) {
+        return null;
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    
+    @Override
+    public String getUsername() {
+        return username;
+    }
+    @Override
+    public void setUsername(String username){
+        this.username = username;
+    }
+    @Override
+    public String getPassword() {
+        return password;
+    }
+    @Override
+    public void setpassword(String password){
+        this.password = password;
     }
 }
 
